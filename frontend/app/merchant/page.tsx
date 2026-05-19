@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { getRestaurant } from "@/lib/api";
 import { formatPeso } from "@/lib/format";
+import type { MenuItem } from "@/lib/types";
 
 type MerchantSession = {
   username: string;
@@ -23,6 +25,14 @@ type MerchantOrder = {
   pickupTime: string;
   items: { name: string; quantity: number; price: number }[];
   status: MerchantOrderStatus;
+};
+
+type StockItem = {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  quantity: number;
 };
 
 const initialOrders: MerchantOrder[] = [
@@ -72,11 +82,22 @@ const storeIdsByName: Record<string, string> = {
   "The Food Nook - Econ Lounge": "econ-lounge",
 };
 
+function getDefaultStock(item: MenuItem) {
+  return item.price > 0 ? 12 : 0;
+}
+
 export default function MerchantPage() {
   const [session, setSession] = useState<MerchantSession | null>(null);
   const [checkedSession, setCheckedSession] = useState(false);
   const [orders, setOrders] = useState(initialOrders);
   const [isOpen, setIsOpen] = useState(true);
+  const [stockItems, setStockItems] = useState<StockItem[]>([]);
+  const [stockLoaded, setStockLoaded] = useState(false);
+  const [stockLoading, setStockLoading] = useState(false);
+  const [stockError, setStockError] = useState("");
+  const [stockSearch, setStockSearch] = useState("");
+  const storeId = session ? storeIdsByName[session.storeName] ?? "tess-store" : "";
+  const stockStorageKey = storeId ? `iskorder-stock-${storeId}` : "";
 
   useEffect(() => {
     // TODO: Replace mock merchant session with real server-side role-based authentication.
@@ -87,10 +108,84 @@ export default function MerchantPage() {
     setCheckedSession(true);
   }, []);
 
+  useEffect(() => {
+    if (!storeId) {
+      return;
+    }
+
+    setStockLoading(true);
+    setStockLoaded(false);
+    setStockError("");
+
+    getRestaurant(storeId)
+      .then((restaurant) => {
+        const savedStock = window.localStorage.getItem(`iskorder-stock-${storeId}`);
+        const savedQuantities = new Map<string, number>();
+
+        if (savedStock) {
+          try {
+            const parsedStock = JSON.parse(savedStock) as StockItem[];
+            if (Array.isArray(parsedStock)) {
+              parsedStock.forEach((item) => {
+                if (typeof item.id === "string" && typeof item.quantity === "number") {
+                  savedQuantities.set(item.id, item.quantity);
+                }
+              });
+            }
+          } catch {
+            window.localStorage.removeItem(`iskorder-stock-${storeId}`);
+          }
+        }
+
+        setStockItems(
+          restaurant.menu.map((item) => ({
+            id: item.id,
+            name: item.name,
+            category: item.category,
+            price: item.price,
+            quantity: savedQuantities.get(item.id) ?? getDefaultStock(item),
+          })),
+        );
+        setStockLoaded(true);
+      })
+      .catch(() => {
+        setStockItems([]);
+        setStockError("Could not load stock list.");
+        setStockLoaded(true);
+      })
+      .finally(() => setStockLoading(false));
+  }, [storeId]);
+
+  useEffect(() => {
+    if (stockStorageKey && stockLoaded) {
+      window.localStorage.setItem(stockStorageKey, JSON.stringify(stockItems));
+    }
+  }, [stockItems, stockLoaded, stockStorageKey]);
+
   const activeOrders = useMemo(
     () => orders.filter((order) => order.status !== "Completed" && order.status !== "Cancelled"),
     [orders],
   );
+
+  const stockSummary = useMemo(
+    () => ({
+      total: stockItems.reduce((sum, item) => sum + item.quantity, 0),
+      low: stockItems.filter((item) => item.quantity > 0 && item.quantity <= 3).length,
+      out: stockItems.filter((item) => item.quantity === 0).length,
+    }),
+    [stockItems],
+  );
+
+  const filteredStockItems = useMemo(() => {
+    const normalizedSearch = stockSearch.trim().toLowerCase();
+    if (!normalizedSearch) {
+      return stockItems;
+    }
+
+    return stockItems.filter((item) =>
+      [item.name, item.category].join(" ").toLowerCase().includes(normalizedSearch),
+    );
+  }, [stockItems, stockSearch]);
 
   const totalOpenSales = useMemo(
     () =>
@@ -110,6 +205,24 @@ export default function MerchantPage() {
     setOrders((currentOrders) =>
       currentOrders.map((order) =>
         order.id === orderId ? { ...order, status } : order,
+      ),
+    );
+  }
+
+  function updateStock(itemId: string, change: number) {
+    setStockItems((currentItems) =>
+      currentItems.map((item) =>
+        item.id === itemId
+          ? { ...item, quantity: Math.max(0, item.quantity + change) }
+          : item,
+      ),
+    );
+  }
+
+  function setStockQuantity(itemId: string, quantity: number) {
+    setStockItems((currentItems) =>
+      currentItems.map((item) =>
+        item.id === itemId ? { ...item, quantity: Math.max(0, quantity) } : item,
       ),
     );
   }
@@ -168,7 +281,7 @@ export default function MerchantPage() {
         </div>
         <div className="flex flex-wrap gap-2">
           <Link
-            href={`/restaurants/${storeIdsByName[session.storeName] ?? "tess-store"}?view=merchant`}
+            href={`/restaurants/${storeId}?view=merchant`}
             className="inline-flex min-h-11 items-center rounded-md border border-maroon/20 bg-white px-4 text-sm font-black text-maroon"
           >
             View storefront
@@ -206,6 +319,128 @@ export default function MerchantPage() {
             {formatPeso(totalOpenSales)}
           </p>
         </article>
+      </section>
+
+      <section className="mb-6 rounded-lg bg-white p-5 shadow-sm ring-1 ring-maroon/10">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="text-sm font-black uppercase text-gold-dark">Stock tracker</p>
+            <h2 className="font-display mt-1 text-4xl leading-none text-maroon">
+              Menu inventory
+            </h2>
+          </div>
+          <label className="w-full sm:w-72">
+            <span className="text-sm font-bold text-ink/70">Find item</span>
+            <input
+              type="search"
+              value={stockSearch}
+              onChange={(event) => setStockSearch(event.target.value)}
+              placeholder="Search menu stock"
+              className="mt-2 h-11 w-full rounded-md border border-maroon/15 bg-cream px-4 text-sm font-semibold outline-none transition placeholder:text-ink/40 focus:border-maroon focus:bg-white focus:ring-4 focus:ring-gold/25"
+            />
+          </label>
+        </div>
+
+        <div className="mt-5 grid gap-3 sm:grid-cols-3">
+          <div className="rounded-lg bg-cream p-4">
+            <p className="text-xs font-black uppercase text-ink/55">Total units</p>
+            <p className="mt-1 text-3xl font-black text-maroon">{stockSummary.total}</p>
+          </div>
+          <div className="rounded-lg bg-cream p-4">
+            <p className="text-xs font-black uppercase text-ink/55">Low stock</p>
+            <p className="mt-1 text-3xl font-black text-maroon">{stockSummary.low}</p>
+          </div>
+          <div className="rounded-lg bg-cream p-4">
+            <p className="text-xs font-black uppercase text-ink/55">Out of stock</p>
+            <p className="mt-1 text-3xl font-black text-maroon">{stockSummary.out}</p>
+          </div>
+        </div>
+
+        {stockError ? (
+          <p className="mt-4 rounded-md bg-maroon/10 px-3 py-2 text-sm font-bold text-maroon">
+            {stockError}
+          </p>
+        ) : null}
+
+        <div className="mt-5 max-h-[460px] space-y-3 overflow-y-auto pr-1">
+          {stockLoading ? (
+            <p className="rounded-lg bg-cream p-4 text-sm font-bold text-ink/65">
+              Loading menu stock...
+            </p>
+          ) : null}
+
+          {!stockLoading && filteredStockItems.length === 0 ? (
+            <p className="rounded-lg bg-cream p-4 text-sm font-bold text-ink/65">
+              No stock items match your search.
+            </p>
+          ) : null}
+
+          {filteredStockItems.map((item) => {
+            const stockStatus =
+              item.quantity === 0 ? "Out" : item.quantity <= 3 ? "Low" : "In stock";
+            const stockClass =
+              item.quantity === 0
+                ? "bg-stone text-ink"
+                : item.quantity <= 3
+                  ? "bg-gold text-maroon"
+                  : "bg-forest text-white";
+
+            return (
+              <article
+                key={item.id}
+                className="grid gap-4 rounded-lg border border-maroon/10 bg-cream p-4 md:grid-cols-[1fr_auto]"
+              >
+                <div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="font-black text-ink">{item.name}</h3>
+                    <span className={`rounded-md px-2 py-1 text-xs font-black uppercase ${stockClass}`}>
+                      {stockStatus}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-sm font-semibold text-ink/60">
+                    {item.category} - {formatPeso(item.price)}
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2 md:justify-end">
+                  <button
+                    type="button"
+                    onClick={() => updateStock(item.id, -1)}
+                    className="h-10 w-10 rounded-md border border-maroon/20 bg-white text-lg font-black text-maroon"
+                    aria-label={`Remove one ${item.name}`}
+                  >
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    min="0"
+                    value={item.quantity}
+                    onChange={(event) =>
+                      setStockQuantity(item.id, Number(event.target.value) || 0)
+                    }
+                    className="h-10 w-20 rounded-md border border-maroon/15 bg-white text-center text-sm font-black text-ink outline-none focus:border-maroon focus:ring-4 focus:ring-gold/25"
+                    aria-label={`${item.name} stock quantity`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => updateStock(item.id, 1)}
+                    className="h-10 w-10 rounded-md bg-maroon text-lg font-black text-white"
+                    aria-label={`Add one ${item.name}`}
+                  >
+                    +
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setStockQuantity(item.id, 0)}
+                    className="h-10 rounded-md border border-maroon/20 bg-white px-3 text-sm font-black text-maroon"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </article>
+            );
+          })}
+        </div>
       </section>
 
       <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
