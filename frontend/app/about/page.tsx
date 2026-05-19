@@ -9,12 +9,37 @@ const helpItems = [
 ];
 
 const team = [
-  ["Ramos, Kim Alecxsis", "Project Manager / UI/UX Designer"],
-  ["Mariano, Aryanna Louise", "Quality Assurance Tester"],
-  ["Konno, Salina", "Quality Assurance Tester"],
-  ["Kho, Will Ivenson", "Project Developer / Engineer"],
-  ["De Lugar, Davy", "Business Analyst"],
-  ["Rhey Joseph S. Daway", "Project Consultant / Adviser"],
+  {
+    name: "Ramos, Kim Alecxsis",
+    role: "Project Manager / UI/UX Designer",
+    image: "/images/team/kim.jpg",
+    initials: "KR",
+  },
+  {
+    name: "Mariano, Aryanna Louise",
+    role: "Quality Assurance Tester",
+    initials: "AM",
+  },
+  {
+    name: "Konno, Salina",
+    role: "Quality Assurance Tester",
+    initials: "SK",
+  },
+  {
+    name: "Kho, Will Ivenson",
+    role: "Project Developer / Engineer",
+    initials: "WK",
+  },
+  {
+    name: "De Lugar, Davy",
+    role: "Business Analyst",
+    initials: "DD",
+  },
+  {
+    name: "Rhey Joseph S. Daway",
+    role: "Project Consultant / Adviser",
+    initials: "RD",
+  },
 ];
 
 export default function AboutPage() {
@@ -55,6 +80,46 @@ export default function AboutPage() {
               improves order tracking, and makes daily meal access more convenient for
               students and teachers.
             </p>
+          </div>
+
+          <div className="mt-8 border-t border-maroon/10 pt-6">
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-gold-dark">
+              Our Team
+            </p>
+            <h2 className="font-display mt-2 text-4xl leading-none text-maroon">
+              Meet the Team
+            </h2>
+
+            <div className="mt-5 space-y-4">
+              {team.map((member) => (
+                <article
+                  key={member.name}
+                  className="overflow-hidden rounded-lg border border-maroon/10 bg-paper shadow-sm"
+                >
+                  {member.image ? (
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="aspect-square w-full object-cover"
+                    />
+                  ) : (
+                    <div className="grid aspect-square w-full place-items-center bg-cream">
+                      <div className="grid h-24 w-24 place-items-center rounded-full bg-maroon text-3xl font-black text-gold">
+                        {member.initials}
+                      </div>
+                    </div>
+                  )}
+                  <div className="bg-white p-4">
+                    <h3 className="text-base font-black leading-tight text-maroon">
+                      {member.name}
+                    </h3>
+                    <p className="mt-1 text-sm font-semibold leading-6 text-ink/65">
+                      {member.role}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </aside>
 
@@ -115,36 +180,6 @@ export default function AboutPage() {
                   pick up their food once it is ready.
                 </p>
               </div>
-            </div>
-          </div>
-
-          <div className="rounded-lg border border-maroon/10 bg-white p-6 shadow-sm">
-            <h2 className="font-display text-5xl leading-none text-maroon">Our Project Team</h2>
-            <p className="mt-4 max-w-4xl text-sm leading-7 text-ink/68">
-              IskOrder was developed by a dedicated project team focused on creating a
-              faster and more convenient campus food ordering experience for UP students
-              and teachers. Each member contributed to planning, design, development,
-              testing, and project guidance to ensure that the platform supports its main
-              goal of reducing food ordering waiting time on campus.
-            </p>
-
-            <div className="mt-6 overflow-hidden rounded-lg border border-maroon/10">
-              <table className="w-full border-collapse text-left text-sm">
-                <thead className="bg-maroon text-white">
-                  <tr>
-                    <th className="px-4 py-3 font-black">Team Member</th>
-                    <th className="px-4 py-3 font-black">Role</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-maroon/10 bg-white">
-                  {team.map(([member, role]) => (
-                    <tr key={member}>
-                      <td className="px-4 py-3 font-bold text-maroon">{member}</td>
-                      <td className="px-4 py-3 text-ink/70">{role}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
             </div>
           </div>
         </div>
