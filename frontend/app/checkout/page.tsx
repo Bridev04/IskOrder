@@ -8,7 +8,7 @@ import { createOrder, getRestaurant } from "@/lib/api";
 import { formatPeso } from "@/lib/format";
 import type { PaymentMethod, Restaurant, ServiceType } from "@/lib/types";
 
-const paymentMethods: PaymentMethod[] = ["GCash", "InstaPay"];
+const paymentMethods: PaymentMethod[] = ["GCash", "InstaPay", "Cash"];
 
 function formatPickupTime(date: Date) {
   return date.toLocaleTimeString("en-PH", {

@@ -23,6 +23,7 @@ const team = [
   {
     name: "Konno, Salina",
     role: "Quality Assurance Tester",
+    image: "/images/team/salina.jpg",
     initials: "SK",
   },
   {
@@ -38,6 +39,7 @@ const team = [
   {
     name: "Rhey Joseph S. Daway",
     role: "Project Consultant / Adviser",
+    image: "/images/team/rheyjoseph.jpg",
     initials: "RD",
   },
 ];

@@ -119,14 +119,6 @@ export default function ConfirmationPage() {
           </section>
         </div>
 
-        <div className="mt-6 rounded-lg bg-maroon p-5 text-left text-white">
-          <h2 className="font-display text-3xl leading-none">Share your IskOrder</h2>
-          <p className="mt-2 text-sm leading-6 text-white/80">
-            Suggested caption: Ordered {order.order.items[0]?.name} from {order.restaurant.name}
-            with IskOrder. Pickup at {order.order.pickup_time}.
-          </p>
-        </div>
-
         <Link
           href="/restaurants"
           className="mt-8 inline-flex rounded-full bg-maroon px-6 py-3 font-black text-white hover:bg-maroon/90"
