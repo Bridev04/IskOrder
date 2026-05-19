@@ -18,6 +18,7 @@ const team = [
   {
     name: "Mariano, Aryanna Louise",
     role: "Quality Assurance Tester",
+    image: "/images/team/louise.jpg",
     initials: "AM",
   },
   {
@@ -34,6 +35,7 @@ const team = [
   {
     name: "De Lugar, Davy",
     role: "Business Analyst",
+    image: "/images/team/davy.jpg",
     initials: "DD",
   },
   {

@@ -16,7 +16,7 @@ class OrderCreate(BaseModel):
     service_type: Literal["pickup", "delivery"]
     contact_number: str = Field(..., min_length=1, examples=["09171234567"])
     pickup_time: str = Field(..., min_length=1, examples=["12:45 PM"])
-    payment_method: Literal["GCash", "InstaPay"]
+    payment_method: Literal["GCash", "InstaPay", "Cash"]
     items: list[OrderItem] = Field(..., min_length=1)
     total_price: float = Field(..., ge=0, examples=[270])
     notes: str | None = Field(default="", examples=["No onions, please."])
