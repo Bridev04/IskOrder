@@ -48,7 +48,7 @@ function generatePickupOptions() {
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { items, totalPrice, clearCart } = useCart();
+  const { items, loaded, totalPrice, clearCart } = useCart();
   const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
   const [customerName, setCustomerName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
@@ -75,23 +75,33 @@ export default function CheckoutPage() {
   useEffect(() => {
     const restaurantId = items[0]?.restaurantId;
     if (!restaurantId) {
+      setRestaurant(null);
       return;
     }
 
+    setError("");
     getRestaurant(restaurantId)
       .then((data) => {
         setRestaurant(data);
         setServiceType(data.service_types[0]);
       })
-      .catch(() => setError("Could not load restaurant details."));
+      .catch(() => {
+        setRestaurant(null);
+        setError("Could not load restaurant details.");
+      });
   }, [items]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
 
-    if (!restaurant || items.length === 0) {
+    if (items.length === 0) {
       setError("Your cart is empty.");
+      return;
+    }
+
+    if (!restaurant) {
+      setError("Could not load restaurant details.");
       return;
     }
 
@@ -122,6 +132,15 @@ export default function CheckoutPage() {
       setError("Could not place the order. Please try again.");
       setSubmitting(false);
     }
+  }
+
+  if (!loaded) {
+    return (
+      <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
+        <p className="font-black uppercase tracking-[0.2em] text-gold-dark">Checkout</p>
+        <h1 className="font-display mt-2 text-5xl leading-none text-maroon">Loading checkout</h1>
+      </div>
+    );
   }
 
   if (items.length === 0) {
@@ -252,10 +271,10 @@ export default function CheckoutPage() {
 
         <button
           type="submit"
-          disabled={submitting}
+          disabled={submitting || !restaurant}
           className="mt-8 w-full rounded-full bg-maroon px-6 py-3 font-black text-white transition hover:bg-maroon/90 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {submitting ? "Placing order..." : "Place order"}
+          {submitting ? "Placing order..." : !restaurant ? "Loading restaurant..." : "Place order"}
         </button>
       </form>
 

@@ -66,6 +66,45 @@ The frontend API URL defaults to `http://localhost:8000`. To change it, create `
 NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
 ```
 
+## Deploy
+
+Recommended setup:
+
+- Frontend: Vercel
+- Backend API: Railway
+
+### Railway Backend
+
+Create a Railway project from the GitHub repo and set the service root directory to `backend`. Railway will use `backend/railway.json` to start the API:
+
+```text
+uvicorn app.main:app --host 0.0.0.0 --port $PORT
+```
+
+After Railway deploys, generate a public domain for the backend service. Then add this Railway environment variable, replacing the value with your Vercel domain:
+
+```text
+CORS_ALLOWED_ORIGINS=https://your-vercel-app.vercel.app
+```
+
+For Vercel preview deployments, you can also set:
+
+```text
+CORS_ALLOW_ORIGIN_REGEX=https://.*\.vercel\.app
+```
+
+### Vercel Frontend
+
+Import the same GitHub repo into Vercel and set the project root directory to `frontend`. Use the default Next.js build settings.
+
+Add this Vercel environment variable, replacing the value with your Railway backend URL:
+
+```text
+NEXT_PUBLIC_API_BASE_URL=https://your-railway-backend.up.railway.app
+```
+
+Deploy the backend first, then deploy or redeploy the frontend after setting `NEXT_PUBLIC_API_BASE_URL`.
+
 ## Notes
 
 - Cart data is stored in browser localStorage.

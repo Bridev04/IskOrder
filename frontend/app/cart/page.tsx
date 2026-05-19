@@ -6,8 +6,17 @@ import { useCart } from "@/components/CartProvider";
 import { formatPeso } from "@/lib/format";
 
 export default function CartPage() {
-  const { items, totalPrice, updateQuantity, removeItem, clearCart } = useCart();
+  const { items, loaded, totalPrice, updateQuantity, removeItem, clearCart } = useCart();
   const restaurantName = items[0]?.restaurantName;
+
+  if (!loaded) {
+    return (
+      <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
+        <p className="font-black uppercase tracking-[0.2em] text-gold-dark">Cart</p>
+        <h1 className="font-display mt-2 text-5xl leading-none text-maroon">Loading cart</h1>
+      </div>
+    );
+  }
 
   if (items.length === 0) {
     return (

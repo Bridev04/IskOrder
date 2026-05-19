@@ -12,6 +12,7 @@ import type { CartItem, MenuItem } from "@/lib/types";
 
 type CartContextValue = {
   items: CartItem[];
+  loaded: boolean;
   totalItems: number;
   totalPrice: number;
   addItem: (restaurantId: string, restaurantName: string, item: MenuItem) => void;
@@ -30,7 +31,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const savedCart = window.localStorage.getItem(storageKey);
     if (savedCart) {
-      setItems(JSON.parse(savedCart));
+      try {
+        const parsedCart = JSON.parse(savedCart);
+        setItems(Array.isArray(parsedCart) ? parsedCart : []);
+      } catch {
+        window.localStorage.removeItem(storageKey);
+      }
     }
     setLoaded(true);
   }, []);
@@ -86,6 +92,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const value = useMemo(
     () => ({
       items,
+      loaded,
       totalItems: items.reduce((sum, cartItem) => sum + cartItem.quantity, 0),
       totalPrice: items.reduce(
         (sum, cartItem) => sum + cartItem.item.price * cartItem.quantity,
@@ -96,7 +103,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       removeItem,
       clearCart,
     }),
-    [items],
+    [items, loaded],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
