@@ -10,7 +10,7 @@ const navItems = [
   { href: "/restaurants", label: "Kiosks" },
   { href: "/cart", label: "Cart" },
   { href: "/profile", label: "Profile" },
-  { href: "/#home-features", label: "About" },
+  { href: "/about", label: "About" },
 ];
 
 export function Navbar() {
@@ -22,7 +22,7 @@ export function Navbar() {
   const isSolid = !isHome || scrolled;
   const visibleNavItems = isLoggedIn
     ? navItems
-    : navItems.filter((item) => item.href === "/restaurants" || item.href === "/#home-features");
+    : navItems.filter((item) => item.href === "/restaurants" || item.href === "/about");
 
   function handleLogout() {
     window.localStorage.removeItem(customerProfileKey);
@@ -73,6 +73,8 @@ export function Navbar() {
                   ? pathname === "/profile" || pathname === "/login"
                 : item.href === "/restaurants"
                   ? pathname.startsWith("/restaurants")
+                : item.href === "/about"
+                  ? pathname === "/about"
                   : false;
             return (
               <Link

@@ -6,7 +6,7 @@ import { formatPeso } from "@/lib/format";
 const homeFeatures = [
   {
     title: "Three real kiosks",
-    text: "Browse ECON LOUNGE, Chicken City, and Tess' Store with the photos and menus you provided.",
+    text: "Browse Econ Lounge, Chicken City, and Tess' Store with the photos and menus you provided.",
   },
   {
     title: "Available now",
@@ -63,7 +63,7 @@ export default async function HomePage() {
               Built for busy Iskolars
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-white/90">
-              Order from ECON LOUNGE, Area 2 Chicken City, and Tess' Store with clear
+              Order from Econ Lounge, Area 2 Chicken City, and Tess' Store with clear
               availability, pickup timing, and a simple order confirmation.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -281,7 +281,7 @@ export default async function HomePage() {
           </div>
           <div className="relative mt-6 h-80 overflow-hidden rounded-lg bg-map p-4">
             {[
-              ["ECON LOUNGE", "left-[16%] top-[30%]"],
+              ["Econ Lounge", "left-[16%] top-[30%]"],
               ["Chicken City", "left-[54%] top-[24%]"],
               ["Tess' Store", "left-[34%] top-[62%]"],
             ].map(([label, position]) => (

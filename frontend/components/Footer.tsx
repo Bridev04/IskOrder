@@ -14,7 +14,7 @@ export function Footer() {
           <Link href="/restaurants" className="hover:text-maroon">
             Kiosks
           </Link>
-          <Link href="/#home-features" className="hover:text-maroon">
+          <Link href="/about" className="hover:text-maroon">
             About
           </Link>
           <Link href="/cart" className="hover:text-maroon">

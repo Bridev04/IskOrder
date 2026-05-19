@@ -7,7 +7,7 @@ restaurants = [
         "image": "/images/econlounge.jpg",
         "headerImage": "/images/stores/food-nook-header.jpg",
         "fallbackImage": "/images/econlounge.jpg",
-        "location": "ECON LOUNGE, UP Diliman",
+        "location": "Econ Lounge, UP Diliman",
         "service_types": ["pickup"],
         "status": "Open now",
         "availability": "Available today",

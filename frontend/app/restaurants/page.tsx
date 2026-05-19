@@ -1,4 +1,4 @@
-import { RestaurantCard } from "@/components/RestaurantCard";
+import { KioskBrowser } from "@/components/KioskBrowser";
 import { getRestaurants } from "@/lib/api";
 
 export default async function RestaurantsPage() {
@@ -12,16 +12,12 @@ export default async function RestaurantsPage() {
           Kiosks near UP Diliman
         </h1>
         <p className="mt-4 text-lg leading-8 text-ink/70">
-          View menus from ECON LOUNGE, Area 2 Chicken City, and Tess' Store.
+          View menus from Econ Lounge, Area 2 Chicken City, and Tess' Store.
           Log in as a student or teacher when you are ready to order.
         </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {restaurants.map((restaurant) => (
-          <RestaurantCard key={restaurant.id} restaurant={restaurant} />
-        ))}
-      </div>
+      <KioskBrowser restaurants={restaurants} />
     </div>
   );
 }
