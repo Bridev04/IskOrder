@@ -83,37 +83,32 @@ export default function AboutPage() {
           </div>
 
           <div className="mt-8 border-t border-maroon/10 pt-6">
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-gold-dark">
-              Our Team
-            </p>
-            <h2 className="font-display mt-2 text-4xl leading-none text-maroon">
-              Meet the Team
-            </h2>
+            <h2 className="font-display text-4xl leading-none text-maroon">Meet the Team</h2>
 
-            <div className="mt-5 space-y-4">
+            <div className="mt-5 space-y-3">
               {team.map((member) => (
                 <article
                   key={member.name}
-                  className="overflow-hidden rounded-lg border border-maroon/10 bg-paper shadow-sm"
+                  className="grid grid-cols-[72px_1fr] items-center gap-4 rounded-lg border border-maroon/10 bg-paper p-3 shadow-sm"
                 >
                   {member.image ? (
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="aspect-square w-full object-cover"
+                      className="aspect-square w-full rounded-md object-cover"
                     />
                   ) : (
-                    <div className="grid aspect-square w-full place-items-center bg-cream">
-                      <div className="grid h-24 w-24 place-items-center rounded-full bg-maroon text-3xl font-black text-gold">
+                    <div className="grid aspect-square w-full place-items-center rounded-md bg-cream">
+                      <span className="grid h-10 w-10 place-items-center rounded-full bg-maroon text-sm font-black text-gold">
                         {member.initials}
-                      </div>
+                      </span>
                     </div>
                   )}
-                  <div className="bg-white p-4">
-                    <h3 className="text-base font-black leading-tight text-maroon">
+                  <div className="min-w-0">
+                    <h3 className="text-sm font-black leading-tight text-maroon">
                       {member.name}
                     </h3>
-                    <p className="mt-1 text-sm font-semibold leading-6 text-ink/65">
+                    <p className="mt-1 text-xs font-semibold leading-5 text-ink/65">
                       {member.role}
                     </p>
                   </div>
