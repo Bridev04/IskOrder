@@ -30,6 +30,7 @@ const team = [
   {
     name: "Kho, Will Ivenson",
     role: "Project Developer / Engineer",
+    image: "/images/team/will.jpg",
     initials: "WK",
   },
   {
