@@ -9,11 +9,15 @@ import type { Restaurant } from "@/lib/types";
 
 export default async function RestaurantDetailPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams?: Promise<{ view?: string }>;
 }) {
   let restaurant: Restaurant;
   const { id } = await params;
+  const view = (await searchParams)?.view;
+  const isMerchantView = view === "merchant";
 
   try {
     restaurant = await getRestaurant(id);
@@ -44,8 +48,11 @@ export default async function RestaurantDetailPage({
         />
         <div className="hero-overlay absolute inset-0" />
         <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-          <Link href="/restaurants" className="font-bold text-gold hover:text-white">
-            Back to restaurants
+          <Link
+            href={isMerchantView ? "/merchant" : "/restaurants"}
+            className="font-bold text-gold hover:text-white"
+          >
+            {isMerchantView ? "Back to dashboard" : "Back to restaurants"}
           </Link>
           <div className="mt-10 max-w-3xl">
             <p className="text-sm font-black uppercase text-gold">
@@ -86,6 +93,7 @@ export default async function RestaurantDetailPage({
           menu={restaurant.menu}
           restaurantId={restaurant.id}
           restaurantName={restaurant.name}
+          viewOnly={isMerchantView}
         />
 
         <aside className="h-fit rounded-lg bg-white p-6 shadow-sm ring-1 ring-maroon/10 lg:sticky lg:top-24">
@@ -124,30 +132,36 @@ export default async function RestaurantDetailPage({
                     );
                   })}
                 </ul>
-                <div className="mt-4">
-                  <AddRecommendedOrderButton
-                    restaurantId={restaurant.id}
-                    restaurantName={restaurant.name}
-                    menu={restaurant.menu}
-                    recommendedOrder={recommendedOrder}
-                  />
-                </div>
+                {!isMerchantView ? (
+                  <div className="mt-4">
+                    <AddRecommendedOrderButton
+                      restaurantId={restaurant.id}
+                      restaurantName={restaurant.name}
+                      menu={restaurant.menu}
+                      recommendedOrder={recommendedOrder}
+                    />
+                  </div>
+                ) : null}
               </div>
             ))}
           </div>
-          <div className="mt-5 rounded-lg bg-maroon/5 p-4">
-            <h3 className="font-black text-maroon">One restaurant per cart</h3>
-            <p className="mt-2 text-sm leading-6 text-ink/65">
-              Adding from another restaurant starts a new cart so checkout stays quick
-              and organized.
-            </p>
-          </div>
-          <Link
-            href="/cart"
-            className="mt-5 inline-flex rounded-full bg-maroon px-5 py-3 font-black text-white hover:bg-maroon/90"
-          >
-            Go to cart
-          </Link>
+          {!isMerchantView ? (
+            <>
+              <div className="mt-5 rounded-lg bg-maroon/5 p-4">
+                <h3 className="font-black text-maroon">One restaurant per cart</h3>
+                <p className="mt-2 text-sm leading-6 text-ink/65">
+                  Adding from another restaurant starts a new cart so checkout stays quick
+                  and organized.
+                </p>
+              </div>
+              <Link
+                href="/cart"
+                className="mt-5 inline-flex rounded-full bg-maroon px-5 py-3 font-black text-white hover:bg-maroon/90"
+              >
+                Go to cart
+              </Link>
+            </>
+          ) : null}
         </aside>
       </div>
     </div>

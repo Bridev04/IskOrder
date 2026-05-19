@@ -8,10 +8,12 @@ export function MenuBrowser({
   menu,
   restaurantId,
   restaurantName,
+  viewOnly = false,
 }: {
   menu: MenuItem[];
   restaurantId: string;
   restaurantName: string;
+  viewOnly?: boolean;
 }) {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
@@ -121,6 +123,7 @@ export function MenuBrowser({
               items={items}
               restaurantId={restaurantId}
               restaurantName={restaurantName}
+              viewOnly={viewOnly}
             />
           ))}
         </div>

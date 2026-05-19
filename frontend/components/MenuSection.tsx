@@ -40,11 +40,13 @@ export function MenuSection({
   items,
   restaurantId,
   restaurantName,
+  viewOnly = false,
 }: {
   category: string;
   items: MenuItem[];
   restaurantId: string;
   restaurantName: string;
+  viewOnly?: boolean;
 }) {
   return (
     <section className="space-y-4">
@@ -91,13 +93,15 @@ export function MenuSection({
                   </div>
                   <p className="mt-2 text-xs font-bold text-ink/55">{availability.detail}</p>
                 </div>
-                <div className="flex items-center sm:justify-end">
-                  <AddToCartButton
-                    restaurantId={restaurantId}
-                    restaurantName={restaurantName}
-                    item={item}
-                  />
-                </div>
+                {!viewOnly ? (
+                  <div className="flex items-center sm:justify-end">
+                    <AddToCartButton
+                      restaurantId={restaurantId}
+                      restaurantName={restaurantName}
+                      item={item}
+                    />
+                  </div>
+                ) : null}
               </article>
             );
           })()

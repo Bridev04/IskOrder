@@ -66,6 +66,12 @@ const statusStyles: Record<MerchantOrderStatus, string> = {
   Cancelled: "bg-ink/10 text-ink",
 };
 
+const storeIdsByName: Record<string, string> = {
+  "Tess' Store": "tess-store",
+  "Chicken City - Area 2": "chicken-city",
+  "The Food Nook - Econ Lounge": "econ-lounge",
+};
+
 export default function MerchantPage() {
   const [session, setSession] = useState<MerchantSession | null>(null);
   const [checkedSession, setCheckedSession] = useState(false);
@@ -162,7 +168,7 @@ export default function MerchantPage() {
         </div>
         <div className="flex flex-wrap gap-2">
           <Link
-            href="/restaurants"
+            href={`/restaurants/${storeIdsByName[session.storeName] ?? "tess-store"}?view=merchant`}
             className="inline-flex min-h-11 items-center rounded-md border border-maroon/20 bg-white px-4 text-sm font-black text-maroon"
           >
             View storefront
