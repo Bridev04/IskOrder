@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Quiapo Free";
+  src: url("/fonts/quiapo/Quiapo_Free.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  --font-quiapo: "Quiapo Free", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  background: #f7f1e7;
+  color: #211a1a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #f7f1e7;
+  color: #211a1a;
+  font-family:
+    var(--font-montserrat), Montserrat, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.font-body {
+  font-family:
+    var(--font-montserrat), Montserrat, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hero-overlay {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(33, 26, 26, 0.92) 0%,
+      rgba(33, 26, 26, 0.76) 38%,
+      rgba(123, 17, 19, 0.48) 68%,
+      rgba(123, 17, 19, 0.36) 100%
+    ),
+    linear-gradient(180deg, rgba(33, 26, 26, 0.12), rgba(33, 26, 26, 0.32));
+}
+
+.font-display {
+  font-family: var(--font-quiapo);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.baybayin-ribbon {
+  white-space: nowrap;
+  color: #f2c94c;
+  font-family: "Noto Sans Tagalog", "Segoe UI Historic", serif;
+  font-size: 1.75rem;
+  line-height: 1;
+  word-spacing: 1.4rem;
+}
