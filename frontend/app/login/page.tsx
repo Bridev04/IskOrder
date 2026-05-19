@@ -33,8 +33,7 @@ export default function LoginPage() {
       }),
     );
 
-    const redirectTo = new URLSearchParams(window.location.search).get("next") ?? "/profile";
-    window.location.href = redirectTo;
+    window.location.href = "/";
   }
 
   return (
@@ -51,10 +50,6 @@ export default function LoginPage() {
           <h1 className="font-display mt-2 text-5xl leading-none text-white sm:text-6xl">
             Verify as a student or teacher
           </h1>
-          <p className="mt-4 text-lg font-medium leading-8 text-cream drop-shadow-sm">
-            Guests can view menus, but ordering needs a verified student or teacher profile
-            so pickup notices and reviews are tied to one contact number.
-          </p>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[1fr_0.85fr]">

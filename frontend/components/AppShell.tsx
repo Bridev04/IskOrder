@@ -8,7 +8,6 @@ import { getLoginRedirect, hasCustomerProfile } from "@/lib/auth";
 
 function isPublicRoute(pathname: string) {
   return (
-    pathname === "/" ||
     pathname === "/login" ||
     pathname === "/feedback" ||
     pathname === "/terms" ||
