@@ -43,19 +43,19 @@ export default function MerchantLoginPage() {
   }
 
   return (
-    <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_0.85fr] lg:px-8">
+    <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1fr_0.85fr] lg:px-8 lg:py-16">
       <section>
         <p className="font-black uppercase tracking-[0.2em] text-gold-dark">Store staff</p>
-        <h1 className="font-display mt-2 text-5xl leading-none text-maroon sm:text-6xl">
+        <h1 className="font-display mt-2 text-4xl leading-none text-maroon sm:text-6xl">
           Merchant Login
         </h1>
-        <p className="mt-4 max-w-2xl text-lg leading-8 text-ink/70">
+        <p className="mt-4 max-w-2xl text-base leading-7 text-ink/70 sm:text-lg sm:leading-8">
           Manage kiosk orders, pickup times, and store availability from a staff-only view.
         </p>
 
         <form
           onSubmit={handleSubmit}
-          className="mt-8 rounded-lg bg-white p-6 shadow-sm ring-1 ring-maroon/10"
+          className="mt-8 rounded-lg bg-white p-4 shadow-sm ring-1 ring-maroon/10 sm:p-6"
         >
           <label className="block">
             <span className="font-bold text-ink">Store</span>
@@ -110,8 +110,8 @@ export default function MerchantLoginPage() {
         </form>
       </section>
 
-      <aside className="h-fit rounded-lg bg-forest p-6 text-white shadow-sm">
-        <h2 className="font-display text-4xl leading-none">Kiosk workspace</h2>
+      <aside className="h-fit rounded-lg bg-forest p-4 text-white shadow-sm sm:p-6">
+        <h2 className="font-display text-3xl leading-none sm:text-4xl">Kiosk workspace</h2>
         <div className="mt-5 space-y-4 text-sm leading-6 text-white/82">
           <p>View pending orders and pickup times.</p>
           <p>Move orders through preparing, ready, and completed states.</p>
@@ -119,7 +119,7 @@ export default function MerchantLoginPage() {
         </div>
         <Link
           href="/"
-          className="mt-6 inline-flex rounded-md bg-white px-5 py-3 text-sm font-black text-forest"
+          className="mt-6 inline-flex w-full justify-center rounded-md bg-white px-5 py-3 text-sm font-black text-forest sm:w-auto"
         >
           Back to student side
         </Link>

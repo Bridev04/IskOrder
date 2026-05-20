@@ -69,7 +69,7 @@ export function KioskBrowser({ restaurants }: { restaurants: Restaurant[] }) {
       </p>
 
       {filteredRestaurants.length > 0 ? (
-        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-6 grid gap-5 md:grid-cols-2 lg:mt-8 lg:grid-cols-3 lg:gap-6">
           {filteredRestaurants.map((restaurant) => (
             <RestaurantCard key={restaurant.id} restaurant={restaurant} />
           ))}

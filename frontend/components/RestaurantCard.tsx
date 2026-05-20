@@ -44,7 +44,7 @@ export function RestaurantCard({ restaurant }: { restaurant: Restaurant }) {
             </span>
           ))}
         </div>
-        <span className="inline-flex rounded-full bg-maroon px-4 py-2 text-sm font-black text-white transition group-hover:bg-gold group-hover:text-maroon">
+        <span className="inline-flex w-full justify-center rounded-full bg-maroon px-4 py-2 text-sm font-black text-white transition group-hover:bg-gold group-hover:text-maroon sm:w-auto">
           View menu
         </span>
       </div>

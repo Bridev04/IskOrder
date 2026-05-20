@@ -13,13 +13,13 @@ export default function ProfilePage() {
 
   if (!profile) {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 lg:px-8 lg:py-20">
         <p className="font-black uppercase tracking-[0.2em] text-gold-dark">Student profile</p>
-        <h1 className="font-display mt-2 text-5xl leading-none text-maroon">No profile yet</h1>
+        <h1 className="font-display mt-2 text-4xl leading-none text-maroon sm:text-5xl">No profile yet</h1>
         <p className="mt-4 text-ink/65">Create a student or teacher profile before checkout.</p>
         <Link
           href="/login"
-          className="mt-8 inline-flex rounded-full bg-maroon px-6 py-3 font-black text-white"
+          className="mt-8 inline-flex w-full justify-center rounded-full bg-maroon px-6 py-3 font-black text-white sm:w-auto"
         >
           Log in
         </Link>
@@ -28,11 +28,11 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="font-black uppercase tracking-[0.2em] text-gold-dark">Account profile</p>
-          <h1 className="font-display mt-2 text-5xl leading-none text-maroon sm:text-6xl">
+          <h1 className="font-display mt-2 break-words text-4xl leading-none text-maroon sm:text-6xl">
             {profile.name}
           </h1>
           <p className="mt-3 text-ink/65">
@@ -41,14 +41,14 @@ export default function ProfilePage() {
         </div>
         <Link
           href="/restaurants"
-          className="inline-flex rounded-full bg-maroon px-6 py-3 font-black text-white"
+          className="inline-flex w-full justify-center rounded-full bg-maroon px-6 py-3 font-black text-white sm:w-auto"
         >
           Order food
         </Link>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-        <section className="rounded-lg bg-white p-6 shadow-sm ring-1 ring-maroon/10">
+        <section className="rounded-lg bg-white p-4 shadow-sm ring-1 ring-maroon/10 sm:p-6">
           <h2 className="font-display text-4xl leading-none text-maroon">Profile details</h2>
           <div className="mt-5 space-y-4 text-sm">
             <div>

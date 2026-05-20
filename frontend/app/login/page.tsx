@@ -44,10 +44,10 @@ export default function LoginPage() {
           "linear-gradient(90deg, rgba(33, 26, 26, 0.84), rgba(33, 26, 26, 0.54)), linear-gradient(180deg, rgba(33, 26, 26, 0.2), rgba(33, 26, 26, 0.56)), url('/images/login-background.png')",
       }}
     >
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
         <div className="mb-8 max-w-3xl">
           <p className="font-black uppercase tracking-[0.2em] text-gold">Log in</p>
-          <h1 className="font-display mt-2 text-5xl leading-none text-white sm:text-6xl">
+          <h1 className="font-display mt-2 text-4xl leading-none text-white sm:text-6xl">
             Verify as a student or teacher
           </h1>
         </div>
@@ -56,9 +56,9 @@ export default function LoginPage() {
           <form
             id="account-login-form"
             onSubmit={handleSubmit}
-            className="rounded-lg bg-white/95 p-6 shadow-xl ring-1 ring-white/30 backdrop-blur-sm"
+            className="rounded-lg bg-white/95 p-4 shadow-xl ring-1 ring-white/30 backdrop-blur-sm sm:p-6"
           >
-          <h2 className="font-display text-4xl leading-none text-maroon">
+          <h2 className="font-display text-3xl leading-none text-maroon sm:text-4xl">
             Account verification
           </h2>
           <p className="mt-2 text-sm leading-6 text-ink/65">
@@ -160,21 +160,21 @@ export default function LoginPage() {
           </form>
 
           <aside className="space-y-4">
-          <div className="rounded-lg bg-white/95 p-6 shadow-xl ring-1 ring-white/30 backdrop-blur-sm">
-            <h2 className="font-display text-4xl leading-none text-maroon">Guest mode</h2>
+          <div className="rounded-lg bg-white/95 p-4 shadow-xl ring-1 ring-white/30 backdrop-blur-sm sm:p-6">
+            <h2 className="font-display text-3xl leading-none text-maroon sm:text-4xl">Guest mode</h2>
             <p className="mt-2 text-sm leading-6 text-ink/65">
               Guests can browse kiosks and view menus. Adding food to cart and checkout
               require a student or teacher login.
             </p>
             <Link
               href="/restaurants"
-              className="mt-5 inline-flex rounded-full border border-maroon/20 bg-cream px-5 py-3 font-black text-maroon"
+              className="mt-5 inline-flex w-full justify-center rounded-full border border-maroon/20 bg-cream px-5 py-3 font-black text-maroon sm:w-auto"
             >
               Browse menus
             </Link>
           </div>
 
-          <div className="rounded-lg border border-gold/40 bg-forest/95 p-6 text-white shadow-xl backdrop-blur-sm">
+          <div className="rounded-lg border border-gold/40 bg-forest/95 p-4 text-white shadow-xl backdrop-blur-sm sm:p-6">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-gold">
               Store staff
             </p>
@@ -185,14 +185,14 @@ export default function LoginPage() {
             </p>
             <Link
               href="/merchant/login"
-              className="mt-5 inline-flex rounded-md bg-gold px-5 py-3 font-black text-maroon transition hover:bg-white"
+              className="mt-5 inline-flex w-full justify-center rounded-md bg-gold px-5 py-3 font-black text-maroon transition hover:bg-white sm:w-auto"
             >
               Go to merchant login
             </Link>
           </div>
 
-          <div className="rounded-lg bg-maroon/95 p-6 text-white shadow-xl backdrop-blur-sm">
-            <h2 className="font-display text-4xl leading-none">What gets saved</h2>
+          <div className="rounded-lg bg-maroon/95 p-4 text-white shadow-xl backdrop-blur-sm sm:p-6">
+            <h2 className="font-display text-3xl leading-none sm:text-4xl">What gets saved</h2>
             <ul className="mt-4 space-y-2 text-sm leading-6 text-white/82">
               <li>Name and contact number</li>
               <li>Optional course, year level, or department</li>

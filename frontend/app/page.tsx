@@ -47,7 +47,7 @@ export default async function HomePage() {
   return (
     <div className="overflow-hidden">
       <section
-        className="relative isolate flex min-h-screen items-center bg-ink bg-cover bg-center px-4 py-10 sm:px-6 lg:px-8"
+        className="relative isolate flex min-h-[calc(100vh-4rem)] items-center bg-ink bg-cover bg-center px-4 pb-12 pt-24 sm:px-6 lg:min-h-screen lg:px-8 lg:py-10"
         style={{
           backgroundImage:
             "linear-gradient(90deg, rgba(24, 22, 18, 0.78) 0%, rgba(24, 22, 18, 0.46) 48%, rgba(24, 22, 18, 0.16) 100%), linear-gradient(180deg, rgba(24, 22, 18, 0.1) 0%, rgba(24, 22, 18, 0.55) 100%), url('/images/main.png')",
@@ -59,14 +59,14 @@ export default async function HomePage() {
         <div className="relative mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(360px,0.42fr)] lg:items-center">
           <div className="max-w-4xl pb-4 text-white">
             <p className="font-display text-xl text-gold sm:text-2xl">UP Diliman campus eats</p>
-            <h1 className="font-display mt-4 max-w-4xl text-5xl leading-none text-white sm:text-6xl lg:text-7xl">
+            <h1 className="font-display mt-4 max-w-4xl text-4xl leading-none text-white sm:text-6xl lg:text-7xl">
               Built for busy Iskolars
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/90">
+            <p className="mt-5 max-w-2xl text-base leading-7 text-white/90 sm:text-lg sm:leading-8">
               Order from Econ Lounge, Area 2 Chicken City, and Tess' Store with clear
               availability, pickup timing, and a simple order confirmation.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8 grid gap-3 sm:flex sm:flex-wrap">
               <Link
                 href="/restaurants"
                 className="inline-flex min-h-12 items-center justify-center rounded-md bg-maroon px-7 py-3 text-sm font-black text-white shadow-soft transition hover:bg-gold hover:text-maroon focus:outline-none focus:ring-4 focus:ring-gold/50"
@@ -129,11 +129,11 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section id="nearby-kiosks" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+      <section id="nearby-kiosks" className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
+        <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:flex-wrap sm:items-end">
           <div>
             <p className="font-display text-2xl text-gold-dark">Nearby kiosks</p>
-            <h2 className="font-display mt-1 text-5xl leading-none text-maroon">
+            <h2 className="font-display mt-1 text-4xl leading-none text-maroon sm:text-5xl">
               Order from campus vendors
             </h2>
           </div>
@@ -196,11 +196,11 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-forest px-4 py-16 text-white sm:px-6 lg:px-8">
+      <section className="bg-forest px-4 py-10 text-white sm:px-6 lg:px-8 lg:py-16">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div>
             <p className="font-display text-2xl text-gold">Popular orders today</p>
-            <h2 className="font-display mt-1 text-5xl leading-none">Budget-friendly campus food</h2>
+            <h2 className="font-display mt-1 text-4xl leading-none sm:text-5xl">Budget-friendly campus food</h2>
             <p className="mt-5 max-w-xl leading-7 text-white/78">
               Each menu item shows its current status, price, and kiosk before students commit
               to cart or checkout.
@@ -213,12 +213,12 @@ export default async function HomePage() {
                 href={`/restaurants/${item.restaurantId}`}
                 className="rounded-lg border border-white/12 bg-white p-4 text-ink shadow-sm transition hover:-translate-y-1 hover:shadow-soft focus:outline-none focus:ring-4 focus:ring-gold/40"
               >
-                <div className="flex items-start gap-4">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
                   <FoodImage
                     src={item.image}
                     fallbackSrc={item.fallbackImage}
                     alt={item.name}
-                    className="h-20 w-20 rounded-md object-cover"
+                    className="h-36 w-full rounded-md object-cover sm:h-20 sm:w-20"
                   />
                   <div className="min-w-0 flex-1">
                     <div className="flex items-start justify-between gap-3 border-b border-maroon/10 pb-2">
@@ -246,10 +246,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-8 px-4 py-16 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
+      <section className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-16">
         <div>
           <p className="font-display text-2xl text-gold-dark">Quick reorder</p>
-          <h2 className="font-display mt-1 text-5xl leading-none text-maroon">
+          <h2 className="font-display mt-1 text-4xl leading-none text-maroon sm:text-5xl">
             Repeat your campus routine
           </h2>
           <div className="mt-8 grid gap-4">
@@ -279,7 +279,7 @@ export default async function HomePage() {
               className="h-16 w-16 rounded-md object-contain"
             />
           </div>
-          <div className="relative mt-6 h-80 overflow-hidden rounded-lg bg-map p-4">
+          <div className="relative mt-6 h-64 overflow-hidden rounded-lg bg-map p-4 sm:h-80">
             {[
               ["Econ Lounge", "left-[16%] top-[30%]"],
               ["Chicken City", "left-[54%] top-[24%]"],

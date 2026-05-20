@@ -311,9 +311,9 @@ export default function MerchantPage() {
 
   if (!checkedSession) {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl px-4 py-12 text-center sm:px-6 lg:px-8 lg:py-16">
         <p className="font-black uppercase tracking-[0.2em] text-gold-dark">Merchant</p>
-        <h1 className="font-display mt-2 text-5xl leading-none text-maroon">
+        <h1 className="font-display mt-2 text-4xl leading-none text-maroon sm:text-5xl">
           Loading kiosk desk
         </h1>
       </div>
@@ -322,18 +322,18 @@ export default function MerchantPage() {
 
   if (!session) {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl px-4 py-12 text-center sm:px-6 lg:px-8 lg:py-16">
         <p className="font-black uppercase tracking-[0.2em] text-gold-dark">Merchant dashboard</p>
-        <h1 className="font-display mt-2 text-5xl leading-none text-maroon">
+        <h1 className="font-display mt-2 text-4xl leading-none text-maroon sm:text-5xl">
           Staff login required
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-ink/70">
+        <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-ink/70 sm:text-lg sm:leading-8">
           Use the separate merchant login to manage kiosk orders, pickup times, and store
           availability.
         </p>
         <Link
           href="/merchant/login"
-          className="mt-8 inline-flex rounded-md bg-maroon px-6 py-3 font-black text-white transition hover:bg-gold hover:text-maroon"
+          className="mt-8 inline-flex w-full justify-center rounded-md bg-maroon px-6 py-3 font-black text-white transition hover:bg-gold hover:text-maroon sm:w-auto"
         >
           Go to merchant login
         </Link>
@@ -342,31 +342,31 @@ export default function MerchantPage() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
       <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
         <div className="max-w-3xl">
           <p className="font-black uppercase tracking-[0.2em] text-gold-dark">
             Merchant dashboard
           </p>
-          <h1 className="font-display mt-2 text-5xl leading-none text-maroon sm:text-6xl">
+          <h1 className="font-display mt-2 text-4xl leading-none text-maroon sm:text-6xl">
             {session.storeName}
           </h1>
-          <p className="mt-4 text-lg leading-8 text-ink/70">
+          <p className="mt-4 text-base leading-7 text-ink/70 sm:text-lg sm:leading-8">
             Manage incoming pickup orders, prep status, and store availability from a kiosk-only
             workspace.
           </p>
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="grid w-full gap-2 sm:flex sm:w-auto sm:flex-wrap">
           <Link
             href={`/restaurants/${storeId}?view=merchant`}
-            className="inline-flex min-h-11 items-center rounded-md border border-maroon/20 bg-white px-4 text-sm font-black text-maroon"
+            className="inline-flex min-h-11 items-center justify-center rounded-md border border-maroon/20 bg-white px-4 text-sm font-black text-maroon"
           >
             View storefront
           </Link>
           <button
             type="button"
             onClick={logout}
-            className="inline-flex min-h-11 items-center rounded-md bg-ink px-4 text-sm font-black text-white"
+            className="inline-flex min-h-11 items-center justify-center rounded-md bg-ink px-4 text-sm font-black text-white"
           >
             Log out
           </button>
@@ -434,10 +434,10 @@ export default function MerchantPage() {
 
       {activePanel === "inventory" ? (
       <section className="mb-6 rounded-lg bg-white p-5 shadow-sm ring-1 ring-maroon/10">
-        <div className="flex flex-wrap items-end justify-between gap-4">
+        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:flex-wrap sm:items-end">
           <div>
             <p className="text-sm font-black uppercase text-gold-dark">Stock tracker</p>
-            <h2 className="font-display mt-1 text-4xl leading-none text-maroon">
+            <h2 className="font-display mt-1 text-3xl leading-none text-maroon sm:text-4xl">
               Menu inventory
             </h2>
           </div>
@@ -480,7 +480,7 @@ export default function MerchantPage() {
             Pick a category
           </h3>
           <div
-            className="mt-3 flex gap-2 overflow-x-auto pb-1"
+            className="-mx-5 mt-3 flex gap-2 overflow-x-auto px-5 pb-1 sm:mx-0 sm:px-0"
             aria-label="Filter inventory category"
           >
             <button
@@ -566,7 +566,7 @@ export default function MerchantPage() {
                   </p>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-2 md:justify-end">
+                <div className="grid grid-cols-[40px_1fr_40px] items-center gap-2 sm:flex sm:flex-wrap md:justify-end">
                   <button
                     type="button"
                     onClick={() => updateStock(item.id, -1)}
@@ -582,7 +582,7 @@ export default function MerchantPage() {
                     onChange={(event) =>
                       setStockQuantity(item.id, Number(event.target.value) || 0)
                     }
-                    className="h-10 w-20 rounded-md border border-maroon/15 bg-white text-center text-sm font-black text-ink outline-none focus:border-maroon focus:ring-4 focus:ring-gold/25"
+                    className="h-10 min-w-0 rounded-md border border-maroon/15 bg-white text-center text-sm font-black text-ink outline-none focus:border-maroon focus:ring-4 focus:ring-gold/25 sm:w-20"
                     aria-label={`${item.name} stock quantity`}
                   />
                   <button
@@ -596,7 +596,7 @@ export default function MerchantPage() {
                   <button
                     type="button"
                     onClick={() => setStockQuantity(item.id, 0)}
-                    className="h-10 rounded-md border border-maroon/20 bg-white px-3 text-sm font-black text-maroon"
+                    className="col-span-3 h-10 rounded-md border border-maroon/20 bg-white px-3 text-sm font-black text-maroon sm:col-span-1"
                   >
                     Remove
                   </button>
@@ -611,9 +611,9 @@ export default function MerchantPage() {
       {activePanel === "orders" ? (
       <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
         <section className="rounded-lg bg-white p-5 shadow-sm ring-1 ring-maroon/10">
-          <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <div>
-              <h2 className="font-display text-4xl leading-none text-maroon">
+              <h2 className="font-display text-3xl leading-none text-maroon sm:text-4xl">
                 Current orders
               </h2>
               <p className="mt-1 text-sm text-ink/60">
@@ -670,7 +670,7 @@ export default function MerchantPage() {
 
                   <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-maroon/10 pt-4">
                     <p className="font-black text-maroon">{formatPeso(total)}</p>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="grid w-full gap-2 sm:flex sm:w-auto sm:flex-wrap">
                       {next ? (
                         <button
                           type="button"
@@ -697,8 +697,8 @@ export default function MerchantPage() {
           </div>
         </section>
 
-        <aside className="h-fit rounded-lg bg-maroon p-5 text-white shadow-sm">
-          <h2 className="font-display text-4xl leading-none">Kiosk notes</h2>
+        <aside className="h-fit rounded-lg bg-maroon p-4 text-white shadow-sm sm:p-5">
+          <h2 className="font-display text-3xl leading-none sm:text-4xl">Kiosk notes</h2>
           <div className="mt-4 space-y-4 text-sm leading-6 text-white/82">
             <p>Use Pending for newly received orders.</p>
             <p>Move orders to Preparing once food or drinks are being made.</p>

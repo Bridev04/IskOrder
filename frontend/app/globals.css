@@ -20,6 +20,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -29,6 +30,7 @@ body {
   font-family:
     var(--font-montserrat), Montserrat, ui-sans-serif, system-ui, -apple-system,
     BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow-x: hidden;
 }
 
 .font-body {
@@ -67,4 +69,10 @@ a {
   font-size: 1.75rem;
   line-height: 1;
   word-spacing: 1.4rem;
+}
+
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .mobile-bottom-safe {
+    padding-bottom: calc(6.5rem + env(safe-area-inset-bottom));
+  }
 }

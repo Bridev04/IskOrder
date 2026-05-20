@@ -52,7 +52,7 @@ export function AddRecommendedOrderButton({
     <button
       type="button"
       onClick={handleAddRecommendedOrder}
-      className="inline-flex min-h-11 items-center justify-center rounded-md bg-gold px-4 py-2 text-sm font-black text-maroon shadow-sm transition hover:bg-maroon hover:text-white focus:outline-none focus:ring-4 focus:ring-gold/40"
+      className="inline-flex min-h-11 w-full items-center justify-center rounded-md bg-gold px-4 py-2 text-sm font-black text-maroon shadow-sm transition hover:bg-maroon hover:text-white focus:outline-none focus:ring-4 focus:ring-gold/40 sm:w-auto"
     >
       {!isLoggedIn ? "Log in to order" : added ? "Ordered set" : "Order set"}
     </button>

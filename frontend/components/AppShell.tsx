@@ -42,7 +42,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     return (
       <>
         <Navbar />
-        <main>{children}</main>
+        <main className="mobile-bottom-safe pb-28 lg:pb-0">{children}</main>
         <Footer />
       </>
     );
@@ -66,7 +66,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <>
       <Navbar />
-      <main>{children}</main>
+      <main className="mobile-bottom-safe pb-28 lg:pb-0">{children}</main>
       <Footer />
     </>
   );

@@ -177,21 +177,21 @@ export default function CheckoutPage() {
 
   if (!loaded) {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 lg:px-8 lg:py-20">
         <p className="font-black uppercase tracking-[0.2em] text-gold-dark">Checkout</p>
-        <h1 className="font-display mt-2 text-5xl leading-none text-maroon">Loading checkout</h1>
+        <h1 className="font-display mt-2 text-4xl leading-none text-maroon sm:text-5xl">Loading checkout</h1>
       </div>
     );
   }
 
   if (items.length === 0) {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 lg:px-8 lg:py-20">
         <p className="font-black uppercase tracking-[0.2em] text-gold-dark">Checkout</p>
-        <h1 className="font-display mt-2 text-5xl leading-none text-maroon">No items to checkout</h1>
+        <h1 className="font-display mt-2 text-4xl leading-none text-maroon sm:text-5xl">No items to checkout</h1>
         <Link
           href="/restaurants"
-          className="mt-8 inline-flex rounded-full bg-maroon px-6 py-3 font-black text-white"
+          className="mt-8 inline-flex w-full justify-center rounded-full bg-maroon px-6 py-3 font-black text-white sm:w-auto"
         >
           Browse restaurants
         </Link>
@@ -200,10 +200,10 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1fr_360px] lg:px-8">
-      <form onSubmit={handleSubmit} className="rounded-lg bg-white p-6 shadow-sm ring-1 ring-maroon/10">
+    <div className="mx-auto grid max-w-6xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[1fr_360px] lg:gap-8 lg:px-8 lg:py-12">
+      <form onSubmit={handleSubmit} className="rounded-lg bg-white p-4 shadow-sm ring-1 ring-maroon/10 sm:p-6">
         <p className="font-black uppercase tracking-[0.2em] text-gold-dark">Checkout</p>
-        <h1 className="font-display mt-2 text-5xl leading-none text-maroon">Place your order</h1>
+        <h1 className="font-display mt-2 text-4xl leading-none text-maroon sm:text-5xl">Place your order</h1>
 
         <label className="mt-8 block">
           <span className="font-bold text-ink">Customer name</span>
@@ -319,7 +319,7 @@ export default function CheckoutPage() {
         </button>
       </form>
 
-      <aside className="h-fit rounded-lg bg-white p-6 shadow-sm ring-1 ring-maroon/10">
+      <aside className="h-fit rounded-lg bg-white p-4 shadow-sm ring-1 ring-maroon/10 sm:p-6">
         <h2 className="font-display text-4xl leading-none text-maroon">Order Summary</h2>
         <p className="mt-2 text-sm font-semibold text-ink/60">{items[0]?.restaurantName}</p>
         <div className="mt-5 space-y-4">

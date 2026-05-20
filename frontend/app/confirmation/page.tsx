@@ -20,12 +20,12 @@ export default function ConfirmationPage() {
 
   if (!order) {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 lg:px-8 lg:py-20">
         <p className="font-black uppercase tracking-[0.2em] text-gold-dark">Confirmation</p>
-        <h1 className="font-display mt-2 text-5xl leading-none text-maroon">No recent order found</h1>
+        <h1 className="font-display mt-2 text-4xl leading-none text-maroon sm:text-5xl">No recent order found</h1>
         <Link
           href="/restaurants"
-          className="mt-8 inline-flex rounded-full bg-maroon px-6 py-3 font-black text-white"
+          className="mt-8 inline-flex w-full justify-center rounded-full bg-maroon px-6 py-3 font-black text-white sm:w-auto"
         >
           Start another order
         </Link>
@@ -34,15 +34,15 @@ export default function ConfirmationPage() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
-      <div className="rounded-lg bg-white p-8 text-center shadow-soft ring-1 ring-maroon/10">
+    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8 lg:py-16">
+      <div className="rounded-lg bg-white p-4 text-center shadow-soft ring-1 ring-maroon/10 sm:p-8">
         <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-gold text-3xl font-black text-maroon">
           ✓
         </div>
         <p className="mt-6 font-black uppercase tracking-[0.2em] text-gold-dark">
           {order.status}
         </p>
-        <h1 className="font-display mt-2 text-5xl leading-none text-maroon">Order {order.order_id}</h1>
+        <h1 className="font-display mt-2 text-4xl leading-none text-maroon sm:text-5xl">Order {order.order_id}</h1>
         <p className="mt-4 text-ink/70">
           Estimated time: <span className="font-black">{order.estimated_time}</span>
         </p>
@@ -121,7 +121,7 @@ export default function ConfirmationPage() {
 
         <Link
           href="/restaurants"
-          className="mt-8 inline-flex rounded-full bg-maroon px-6 py-3 font-black text-white hover:bg-maroon/90"
+          className="mt-8 inline-flex w-full justify-center rounded-full bg-maroon px-6 py-3 font-black text-white hover:bg-maroon/90 sm:w-auto"
         >
           Order again
         </Link>

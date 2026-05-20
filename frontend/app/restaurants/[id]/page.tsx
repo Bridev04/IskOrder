@@ -47,21 +47,21 @@ export default async function RestaurantDetailPage({
           priority
         />
         <div className="hero-overlay absolute inset-0" />
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
           <Link
             href={isMerchantView ? "/merchant" : "/restaurants"}
             className="font-bold text-gold hover:text-white"
           >
             {isMerchantView ? "Back to dashboard" : "Back to restaurants"}
           </Link>
-          <div className="mt-10 max-w-3xl">
+          <div className="mt-8 max-w-3xl lg:mt-10">
             <p className="text-sm font-black uppercase text-gold">
               {restaurant.category}
             </p>
-            <h1 className="font-display mt-3 text-5xl leading-none text-white sm:text-6xl">
+            <h1 className="font-display mt-3 text-4xl leading-none text-white sm:text-6xl">
               {restaurant.name}
             </h1>
-            <p className="mt-5 text-lg leading-8 text-white/80">{restaurant.description}</p>
+            <p className="mt-5 text-base leading-7 text-white/80 sm:text-lg sm:leading-8">{restaurant.description}</p>
             <div className="mt-6 flex flex-wrap gap-3">
               <span className="rounded-full bg-forest px-4 py-2 text-sm font-black text-white">
                 {restaurant.status ?? "Open now"}
@@ -88,7 +88,7 @@ export default async function RestaurantDetailPage({
         </div>
       </section>
 
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1fr_320px] lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[1fr_320px] lg:gap-8 lg:px-8 lg:py-12">
         <MenuBrowser
           menu={restaurant.menu}
           restaurantId={restaurant.id}
@@ -96,7 +96,7 @@ export default async function RestaurantDetailPage({
           viewOnly={isMerchantView}
         />
 
-        <aside className="h-fit rounded-lg bg-white p-6 shadow-sm ring-1 ring-maroon/10 lg:sticky lg:top-24">
+        <aside className="h-fit rounded-lg bg-white p-4 shadow-sm ring-1 ring-maroon/10 sm:p-6 lg:sticky lg:top-24">
           <p className="text-sm font-black uppercase text-gold-dark">
             Recommended orders
           </p>
@@ -156,7 +156,7 @@ export default async function RestaurantDetailPage({
               </div>
               <Link
                 href="/cart"
-                className="mt-5 inline-flex rounded-full bg-maroon px-5 py-3 font-black text-white hover:bg-maroon/90"
+            className="mt-5 inline-flex w-full justify-center rounded-full bg-maroon px-5 py-3 font-black text-white hover:bg-maroon/90 sm:w-auto"
               >
                 Go to cart
               </Link>

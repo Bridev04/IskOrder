@@ -58,7 +58,7 @@ export function MenuBrowser({
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(260px,360px)] lg:items-end">
           <div>
             <p className="text-xs font-black uppercase text-gold-dark">Menu sections</p>
-            <h2 className="font-display mt-1 text-4xl leading-none text-maroon">
+            <h2 className="font-display mt-1 text-3xl leading-none text-maroon sm:text-4xl">
               Pick a category
             </h2>
           </div>
@@ -74,7 +74,7 @@ export function MenuBrowser({
           </label>
         </div>
 
-        <div className="mt-5 flex gap-2 overflow-x-auto pb-1" aria-label="Filter menu category">
+        <div className="-mx-4 mt-5 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0" aria-label="Filter menu category">
           <button
             type="button"
             onClick={() => setSelectedCategory("All")}

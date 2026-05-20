@@ -50,7 +50,7 @@ export function MenuSection({
 }) {
   return (
     <section className="space-y-4">
-      <h2 className="font-display border-l-4 border-gold pl-3 text-4xl leading-none text-maroon">
+      <h2 className="font-display border-l-4 border-gold pl-3 text-3xl leading-none text-maroon sm:text-4xl">
         {category}
       </h2>
       <div className="grid gap-4">
@@ -68,7 +68,7 @@ export function MenuSection({
                   src={item.image}
                   fallbackSrc={item.fallbackImage}
                   alt={item.name}
-                  className="h-24 w-full rounded-md object-cover sm:w-24"
+                  className="h-40 w-full rounded-md object-cover sm:h-24 sm:w-24"
                 />
                 <div>
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -94,7 +94,7 @@ export function MenuSection({
                   <p className="mt-2 text-xs font-bold text-ink/55">{availability.detail}</p>
                 </div>
                 {!viewOnly ? (
-                  <div className="flex items-center sm:justify-end">
+                  <div className="flex w-full items-center sm:w-auto sm:justify-end">
                     <AddToCartButton
                       restaurantId={restaurantId}
                       restaurantName={restaurantName}

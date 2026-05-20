@@ -51,7 +51,7 @@ export default function AboutPage() {
   return (
     <div className="bg-paper">
       <section
-        className="relative isolate flex min-h-[72vh] items-end bg-ink bg-cover bg-center px-4 pb-14 pt-28 text-white sm:px-6 lg:px-8"
+        className="relative isolate flex min-h-[58vh] items-end bg-ink bg-cover bg-center px-4 pb-10 pt-24 text-white sm:px-6 lg:min-h-[72vh] lg:px-8 lg:pb-14 lg:pt-28"
         style={{
           backgroundImage:
             "linear-gradient(90deg, rgba(24, 22, 18, 0.82) 0%, rgba(24, 22, 18, 0.48) 56%, rgba(24, 22, 18, 0.22) 100%), linear-gradient(180deg, rgba(24, 22, 18, 0.12) 0%, rgba(24, 22, 18, 0.72) 100%), url('/images/about-hero.jpg')",
@@ -59,10 +59,10 @@ export default function AboutPage() {
       >
         <div className="mx-auto w-full max-w-7xl">
           <p className="font-black uppercase tracking-[0.2em] text-gold">About IskOrder</p>
-          <h1 className="font-display mt-4 max-w-4xl text-6xl leading-none text-white sm:text-7xl">
+          <h1 className="font-display mt-4 max-w-4xl text-4xl leading-none text-white sm:text-6xl lg:text-7xl">
             Built to Beat the Campus Rush
           </h1>
-          <p className="mt-6 max-w-3xl text-lg font-medium leading-8 text-white/88">
+          <p className="mt-5 max-w-3xl text-base font-medium leading-7 text-white/88 sm:text-lg sm:leading-8">
             A real-time food ordering and digital menu platform designed for UP students
             and teachers who want a faster and more convenient way to order food from
             campus kiosks.
@@ -70,8 +70,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:px-8">
-        <aside className="h-fit rounded-lg border border-maroon/10 bg-white p-6 shadow-sm">
+      <section className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:gap-10 lg:px-8 lg:py-16">
+        <aside className="h-fit rounded-lg border border-maroon/10 bg-white p-4 shadow-sm sm:p-6">
           <p className="font-display text-3xl leading-none text-maroon">Mission</p>
           <p className="mt-3 text-sm leading-6 text-ink/68">
             To help UP students and teachers save time by providing a faster, easier, and
@@ -124,8 +124,8 @@ export default function AboutPage() {
         </aside>
 
         <div className="space-y-10">
-          <div className="rounded-lg border border-maroon/10 bg-white p-6 shadow-sm">
-            <h2 className="font-display text-5xl leading-none text-maroon">What We Do</h2>
+          <div className="rounded-lg border border-maroon/10 bg-white p-4 shadow-sm sm:p-6">
+            <h2 className="font-display text-4xl leading-none text-maroon sm:text-5xl">What We Do</h2>
             <div className="mt-5 space-y-5 text-base leading-8 text-ink/72">
               <p>
                 During busy hours, food stalls around campus often have long lines, making
@@ -150,7 +150,7 @@ export default function AboutPage() {
           </div>
 
           <div className="grid gap-6 lg:grid-cols-2">
-            <div className="rounded-lg border border-maroon/10 bg-white p-6 shadow-sm">
+            <div className="rounded-lg border border-maroon/10 bg-white p-4 shadow-sm sm:p-6">
               <h2 className="font-display text-4xl leading-none text-maroon">
                 What IskOrder Helps With
               </h2>
@@ -164,7 +164,7 @@ export default function AboutPage() {
               </ul>
             </div>
 
-            <div className="rounded-lg border border-maroon/10 bg-forest p-6 text-white shadow-sm">
+            <div className="rounded-lg border border-maroon/10 bg-forest p-4 text-white shadow-sm sm:p-6">
               <h2 className="font-display text-4xl leading-none">Why IskOrder Matters</h2>
               <div className="mt-5 space-y-5 text-sm leading-7 text-white/82">
                 <p>

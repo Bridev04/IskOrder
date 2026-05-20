@@ -11,22 +11,22 @@ export default function CartPage() {
 
   if (!loaded) {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 lg:px-8 lg:py-20">
         <p className="font-black uppercase tracking-[0.2em] text-gold-dark">Cart</p>
-        <h1 className="font-display mt-2 text-5xl leading-none text-maroon">Loading cart</h1>
+        <h1 className="font-display mt-2 text-4xl leading-none text-maroon sm:text-5xl">Loading cart</h1>
       </div>
     );
   }
 
   if (items.length === 0) {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 lg:px-8 lg:py-20">
         <p className="font-black uppercase tracking-[0.2em] text-gold-dark">Cart</p>
-        <h1 className="font-display mt-2 text-5xl leading-none text-maroon">Your cart is empty</h1>
+        <h1 className="font-display mt-2 text-4xl leading-none text-maroon sm:text-5xl">Your cart is empty</h1>
         <p className="mt-4 text-ink/65">Pick a campus favorite and add a meal to start.</p>
         <Link
           href="/restaurants"
-          className="mt-8 inline-flex rounded-full bg-maroon px-6 py-3 font-black text-white"
+          className="mt-8 inline-flex w-full justify-center rounded-full bg-maroon px-6 py-3 font-black text-white sm:w-auto"
         >
           Browse restaurants
         </Link>
@@ -35,11 +35,11 @@ export default function CartPage() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="font-black uppercase tracking-[0.2em] text-gold-dark">Cart</p>
-          <h1 className="font-display mt-2 text-5xl leading-none text-maroon">{restaurantName}</h1>
+          <h1 className="font-display mt-2 text-4xl leading-none text-maroon sm:text-5xl">{restaurantName}</h1>
         </div>
         <button onClick={clearCart} className="font-bold text-maroon hover:text-ink">
           Clear cart
@@ -57,14 +57,14 @@ export default function CartPage() {
                 src={cartItem.item.image}
                 fallbackSrc={cartItem.item.fallbackImage}
                 alt={cartItem.item.name}
-                className="h-24 w-full rounded-md object-cover sm:w-24"
+                className="h-40 w-full rounded-md object-cover sm:h-24 sm:w-24"
               />
               <div>
                 <h2 className="text-lg font-black text-ink">{cartItem.item.name}</h2>
                 <p className="mt-1 text-sm text-ink/65">{cartItem.item.description}</p>
                 <p className="mt-2 font-black text-maroon">{formatPeso(cartItem.item.price)}</p>
               </div>
-              <div className="flex items-center gap-3 sm:flex-col sm:items-end sm:justify-between">
+              <div className="flex flex-wrap items-center justify-between gap-3 sm:flex-col sm:items-end sm:justify-between">
                 <div className="flex items-center rounded-full border border-maroon/15 bg-cream">
                   <button
                     onClick={() => updateQuantity(cartItem.item.id, cartItem.quantity - 1)}

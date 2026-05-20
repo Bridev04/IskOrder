@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="border-t border-maroon/10 bg-stone px-4 py-10 sm:px-6 lg:px-8">
+    <footer className="border-t border-maroon/10 bg-stone px-4 pb-32 pt-10 sm:px-6 lg:px-8 lg:pb-10">
       <div className="mx-auto flex max-w-7xl flex-col gap-8 md:flex-row md:items-center md:justify-between">
         <img
           src="/images/iskorder-logo-upd-new.png"
