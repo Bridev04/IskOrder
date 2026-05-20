@@ -75,6 +75,8 @@ const storeIdsByName: Record<string, string> = {
   "Chicken City - Area 2": "chicken-city",
   "The Food Nook - Econ Lounge": "econ-lounge",
 };
+const stockCategoryButtonBase =
+  "inline-flex min-h-11 shrink-0 items-center justify-center rounded-md border px-4 text-sm font-black transition focus:outline-none focus:ring-4 focus:ring-gold/40";
 
 function getDefaultStock(item: MenuItem) {
   return item.price > 0 ? 12 : 0;
@@ -124,6 +126,7 @@ export default function MerchantPage() {
   const [stockLoading, setStockLoading] = useState(false);
   const [stockError, setStockError] = useState("");
   const [stockSearch, setStockSearch] = useState("");
+  const [selectedStockCategory, setSelectedStockCategory] = useState("All");
   const storeId = session ? storeIdsByName[session.storeName] ?? "tess-store" : "";
   const stockStorageKey = storeId ? `iskorder-stock-${storeId}` : "";
 
@@ -153,6 +156,7 @@ export default function MerchantPage() {
     setStockLoading(true);
     setStockLoaded(false);
     setStockError("");
+    setSelectedStockCategory("All");
 
     getRestaurant(storeId)
       .then((restaurant) => {
@@ -213,16 +217,33 @@ export default function MerchantPage() {
     [stockItems],
   );
 
-  const filteredStockItems = useMemo(() => {
-    const normalizedSearch = stockSearch.trim().toLowerCase();
-    if (!normalizedSearch) {
-      return stockItems;
-    }
+  const stockCategories = useMemo(
+    () => Array.from(new Set(stockItems.map((item) => item.category))),
+    [stockItems],
+  );
 
-    return stockItems.filter((item) =>
-      [item.name, item.category].join(" ").toLowerCase().includes(normalizedSearch),
-    );
-  }, [stockItems, stockSearch]);
+  const stockCategoryCounts = useMemo(
+    () =>
+      stockItems.reduce<Record<string, number>>((counts, item) => {
+        counts[item.category] = (counts[item.category] ?? 0) + 1;
+        return counts;
+      }, {}),
+    [stockItems],
+  );
+
+  const normalizedStockSearch = stockSearch.trim().toLowerCase();
+
+  const filteredStockItems = useMemo(() => {
+    return stockItems.filter((item) => {
+      const matchesCategory =
+        selectedStockCategory === "All" || item.category === selectedStockCategory;
+      const matchesSearch =
+        !normalizedStockSearch ||
+        [item.name, item.category].join(" ").toLowerCase().includes(normalizedStockSearch);
+
+      return matchesCategory && matchesSearch;
+    });
+  }, [normalizedStockSearch, selectedStockCategory, stockItems]);
 
   const totalOpenSales = useMemo(
     () =>
@@ -412,6 +433,58 @@ export default function MerchantPage() {
             {stockError}
           </p>
         ) : null}
+
+        <div className="mt-5 border-t border-maroon/10 pt-5">
+          <p className="text-xs font-black uppercase text-gold-dark">Menu sections</p>
+          <h3 className="font-display mt-1 text-3xl leading-none text-maroon">
+            Pick a category
+          </h3>
+          <div
+            className="mt-3 flex gap-2 overflow-x-auto pb-1"
+            aria-label="Filter inventory category"
+          >
+            <button
+              type="button"
+              onClick={() => setSelectedStockCategory("All")}
+              className={`${stockCategoryButtonBase} ${
+                selectedStockCategory === "All"
+                  ? "border-maroon bg-maroon text-white"
+                  : "border-maroon/15 bg-cream text-maroon hover:bg-white"
+              }`}
+            >
+              All
+              <span className="ml-2 rounded bg-white/20 px-2 py-0.5 text-xs">
+                {stockItems.length}
+              </span>
+            </button>
+            {stockCategories.map((category) => {
+              const active = selectedStockCategory === category;
+
+              return (
+                <button
+                  key={category}
+                  type="button"
+                  onClick={() => setSelectedStockCategory(category)}
+                  className={`${stockCategoryButtonBase} ${
+                    active
+                      ? "border-maroon bg-maroon text-white"
+                      : "border-maroon/15 bg-cream text-maroon hover:bg-white"
+                  }`}
+                >
+                  {category}
+                  <span className="ml-2 rounded bg-white/20 px-2 py-0.5 text-xs">
+                    {stockCategoryCounts[category] ?? 0}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+          <p className="mt-3 text-sm font-semibold text-ink/60">
+            Showing {filteredStockItems.length} of {stockItems.length} items
+            {selectedStockCategory !== "All" ? ` in ${selectedStockCategory}` : ""}
+            {normalizedStockSearch ? ` matching "${stockSearch.trim()}"` : ""}.
+          </p>
+        </div>
 
         <div className="mt-5 max-h-[460px] space-y-3 overflow-y-auto pr-1">
           {stockLoading ? (
