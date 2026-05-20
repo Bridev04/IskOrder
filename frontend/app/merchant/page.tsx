@@ -20,6 +20,8 @@ type StockItem = {
   quantity: number;
 };
 
+type MerchantDashboardPanel = "orders" | "inventory";
+
 const merchantOrdersStorageKey = "iskorder-merchant-orders";
 
 const initialOrders: MerchantOrder[] = [
@@ -75,6 +77,8 @@ const storeIdsByName: Record<string, string> = {
   "Chicken City - Area 2": "chicken-city",
   "The Food Nook - Econ Lounge": "econ-lounge",
 };
+const dashboardPanelButtonBase =
+  "inline-flex min-h-11 flex-1 items-center justify-center rounded-md border px-4 text-sm font-black transition focus:outline-none focus:ring-4 focus:ring-gold/40 sm:flex-none";
 const stockCategoryButtonBase =
   "inline-flex min-h-11 shrink-0 items-center justify-center rounded-md border px-4 text-sm font-black transition focus:outline-none focus:ring-4 focus:ring-gold/40";
 
@@ -127,6 +131,7 @@ export default function MerchantPage() {
   const [stockError, setStockError] = useState("");
   const [stockSearch, setStockSearch] = useState("");
   const [selectedStockCategory, setSelectedStockCategory] = useState("All");
+  const [activePanel, setActivePanel] = useState<MerchantDashboardPanel>("orders");
   const storeId = session ? storeIdsByName[session.storeName] ?? "tess-store" : "";
   const stockStorageKey = storeId ? `iskorder-stock-${storeId}` : "";
 
@@ -393,6 +398,41 @@ export default function MerchantPage() {
         </article>
       </section>
 
+      <div
+        className="mb-6 flex flex-wrap gap-2"
+        aria-label="Switch merchant dashboard section"
+      >
+        <button
+          type="button"
+          onClick={() => setActivePanel("orders")}
+          className={`${dashboardPanelButtonBase} ${
+            activePanel === "orders"
+              ? "border-maroon bg-maroon text-white"
+              : "border-maroon/15 bg-white text-maroon hover:bg-cream"
+          }`}
+        >
+          Current orders
+          <span className="ml-2 rounded bg-white/20 px-2 py-0.5 text-xs">
+            {activeOrders.length}
+          </span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setActivePanel("inventory")}
+          className={`${dashboardPanelButtonBase} ${
+            activePanel === "inventory"
+              ? "border-maroon bg-maroon text-white"
+              : "border-maroon/15 bg-white text-maroon hover:bg-cream"
+          }`}
+        >
+          Menu inventory
+          <span className="ml-2 rounded bg-white/20 px-2 py-0.5 text-xs">
+            {stockItems.length}
+          </span>
+        </button>
+      </div>
+
+      {activePanel === "inventory" ? (
       <section className="mb-6 rounded-lg bg-white p-5 shadow-sm ring-1 ring-maroon/10">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
@@ -566,7 +606,9 @@ export default function MerchantPage() {
           })}
         </div>
       </section>
+      ) : null}
 
+      {activePanel === "orders" ? (
       <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
         <section className="rounded-lg bg-white p-5 shadow-sm ring-1 ring-maroon/10">
           <div className="flex flex-wrap items-center justify-between gap-3">
@@ -665,6 +707,7 @@ export default function MerchantPage() {
           </div>
         </aside>
       </div>
+      ) : null}
     </div>
   );
 }
