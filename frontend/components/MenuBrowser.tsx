@@ -74,18 +74,6 @@ export function MenuBrowser({
           </label>
         </div>
 
-        {showTessComboGuide ? (
-          <div className="mt-5 overflow-hidden rounded-lg border border-maroon/10 bg-cream shadow-sm ring-1 ring-white/70">
-            <FoodImage
-              src="/images/stores/tess-store-combo-meals.png"
-              fallbackSrc="/images/tess-store.jpg"
-              alt="Tess' Store combo meals category guide"
-              className="aspect-[16/9] w-full object-cover"
-              priority
-            />
-          </div>
-        ) : null}
-
         <div className="mt-5 flex gap-2 overflow-x-auto pb-1" aria-label="Filter menu category">
           <button
             type="button"
@@ -127,6 +115,18 @@ export function MenuBrowser({
           {normalizedSearch ? ` matching "${searchTerm.trim()}"` : ""}.
         </p>
       </section>
+
+      {showTessComboGuide ? (
+        <div className="overflow-hidden rounded-lg border border-maroon/10 bg-cream shadow-sm ring-1 ring-white/70">
+          <FoodImage
+            src="/images/stores/tess-store-combo-meals.png"
+            fallbackSrc="/images/tess-store.jpg"
+            alt="Tess' Store combo meals category guide"
+            className="aspect-[16/9] w-full object-cover"
+            priority
+          />
+        </div>
+      ) : null}
 
       {visibleCategories.length > 0 ? (
         <div className="space-y-10">
