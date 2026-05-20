@@ -74,3 +74,26 @@ export type OrderResponse = {
     location: string;
   };
 };
+
+export type MerchantOrderStatus =
+  | "Pending"
+  | "Preparing"
+  | "Ready for Pickup"
+  | "Completed"
+  | "Cancelled";
+
+export type MerchantOrder = {
+  id: string;
+  restaurantId: string;
+  restaurantName: string;
+  studentName: string;
+  pickupTime: string;
+  paymentMethod?: PaymentMethod;
+  notes?: string | null;
+  items: {
+    name: string;
+    quantity: number;
+    price: number;
+  }[];
+  status: MerchantOrderStatus;
+};

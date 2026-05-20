@@ -4,27 +4,12 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { getRestaurant } from "@/lib/api";
 import { formatPeso } from "@/lib/format";
-import type { MenuItem } from "@/lib/types";
+import type { MenuItem, MerchantOrder, MerchantOrderStatus } from "@/lib/types";
 
 type MerchantSession = {
   username: string;
   storeName: string;
   signedInAt: string;
-};
-
-type MerchantOrderStatus =
-  | "Pending"
-  | "Preparing"
-  | "Ready for Pickup"
-  | "Completed"
-  | "Cancelled";
-
-type MerchantOrder = {
-  id: string;
-  studentName: string;
-  pickupTime: string;
-  items: { name: string; quantity: number; price: number }[];
-  status: MerchantOrderStatus;
 };
 
 type StockItem = {
@@ -35,9 +20,13 @@ type StockItem = {
   quantity: number;
 };
 
+const merchantOrdersStorageKey = "iskorder-merchant-orders";
+
 const initialOrders: MerchantOrder[] = [
   {
     id: "ISK-24A91F",
+    restaurantId: "tess-store",
+    restaurantName: "Tess' Store",
     studentName: "Mika Santos",
     pickupTime: "12:45 PM",
     status: "Pending",
@@ -48,6 +37,8 @@ const initialOrders: MerchantOrder[] = [
   },
   {
     id: "ISK-81C02B",
+    restaurantId: "chicken-city",
+    restaurantName: "Chicken City - Area 2",
     studentName: "Rafa Dizon",
     pickupTime: "1:00 PM",
     status: "Preparing",
@@ -55,6 +46,8 @@ const initialOrders: MerchantOrder[] = [
   },
   {
     id: "ISK-18BD77",
+    restaurantId: "econ-lounge",
+    restaurantName: "The Food Nook - Econ Lounge",
     studentName: "Aly Cruz",
     pickupTime: "1:15 PM",
     status: "Ready for Pickup",
@@ -75,6 +68,7 @@ const statusStyles: Record<MerchantOrderStatus, string> = {
   Completed: "bg-stone text-ink",
   Cancelled: "bg-ink/10 text-ink",
 };
+const merchantOrderStatuses = new Set(Object.keys(statusStyles));
 
 const storeIdsByName: Record<string, string> = {
   "Tess' Store": "tess-store",
@@ -86,10 +80,44 @@ function getDefaultStock(item: MenuItem) {
   return item.price > 0 ? 12 : 0;
 }
 
+function getStoredMerchantOrders() {
+  const savedOrders = window.localStorage.getItem(merchantOrdersStorageKey);
+  if (!savedOrders) {
+    return [];
+  }
+
+  try {
+    const parsedOrders = JSON.parse(savedOrders) as MerchantOrder[];
+    return Array.isArray(parsedOrders)
+      ? parsedOrders.filter(
+          (order) =>
+            typeof order.id === "string" &&
+            typeof order.restaurantId === "string" &&
+            typeof order.studentName === "string" &&
+            typeof order.pickupTime === "string" &&
+            merchantOrderStatuses.has(order.status) &&
+            Array.isArray(order.items),
+        )
+      : [];
+  } catch {
+    window.localStorage.removeItem(merchantOrdersStorageKey);
+    return [];
+  }
+}
+
+function getMerchantOrdersForStore(storeId: string) {
+  const storedOrders = getStoredMerchantOrders();
+  const storedOrderIds = new Set(storedOrders.map((order) => order.id));
+
+  return [...storedOrders, ...initialOrders.filter((order) => !storedOrderIds.has(order.id))]
+    .filter((order) => order.restaurantId === storeId)
+    .sort((a, b) => a.pickupTime.localeCompare(b.pickupTime));
+}
+
 export default function MerchantPage() {
   const [session, setSession] = useState<MerchantSession | null>(null);
   const [checkedSession, setCheckedSession] = useState(false);
-  const [orders, setOrders] = useState(initialOrders);
+  const [orders, setOrders] = useState<MerchantOrder[]>([]);
   const [isOpen, setIsOpen] = useState(true);
   const [stockItems, setStockItems] = useState<StockItem[]>([]);
   const [stockLoaded, setStockLoaded] = useState(false);
@@ -107,6 +135,15 @@ export default function MerchantPage() {
     }
     setCheckedSession(true);
   }, []);
+
+  useEffect(() => {
+    if (!storeId) {
+      setOrders([]);
+      return;
+    }
+
+    setOrders(getMerchantOrdersForStore(storeId));
+  }, [storeId]);
 
   useEffect(() => {
     if (!storeId) {
@@ -207,6 +244,20 @@ export default function MerchantPage() {
         order.id === orderId ? { ...order, status } : order,
       ),
     );
+
+    const storedOrders = getStoredMerchantOrders();
+    const hasStoredOrder = storedOrders.some((order) => order.id === orderId);
+
+    if (hasStoredOrder) {
+      window.localStorage.setItem(
+        merchantOrdersStorageKey,
+        JSON.stringify(
+          storedOrders.map((order) =>
+            order.id === orderId ? { ...order, status } : order,
+          ),
+        ),
+      );
+    }
   }
 
   function updateStock(itemId: string, change: number) {

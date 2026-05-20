@@ -6,9 +6,15 @@ import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useCart } from "@/components/CartProvider";
 import { createOrder, getRestaurant } from "@/lib/api";
 import { formatPeso } from "@/lib/format";
-import type { PaymentMethod, Restaurant, ServiceType } from "@/lib/types";
+import type {
+  MerchantOrder,
+  PaymentMethod,
+  Restaurant,
+  ServiceType,
+} from "@/lib/types";
 
 const paymentMethods: PaymentMethod[] = ["GCash", "InstaPay", "Cash"];
+const merchantOrdersStorageKey = "iskorder-merchant-orders";
 
 function formatPickupTime(date: Date) {
   return date.toLocaleTimeString("en-PH", {
@@ -44,6 +50,26 @@ function generatePickupOptions() {
   }
 
   return slots;
+}
+
+function saveMerchantOrder(order: MerchantOrder) {
+  const savedOrders = window.localStorage.getItem(merchantOrdersStorageKey);
+  let merchantOrders: MerchantOrder[] = [];
+
+  if (savedOrders) {
+    try {
+      const parsedOrders = JSON.parse(savedOrders);
+      merchantOrders = Array.isArray(parsedOrders) ? parsedOrders : [];
+    } catch {
+      merchantOrders = [];
+    }
+  }
+
+  const nextOrders = [
+    order,
+    ...merchantOrders.filter((merchantOrder) => merchantOrder.id !== order.id),
+  ];
+  window.localStorage.setItem(merchantOrdersStorageKey, JSON.stringify(nextOrders));
 }
 
 export default function CheckoutPage() {
@@ -125,6 +151,21 @@ export default function CheckoutPage() {
         notes,
       });
 
+      saveMerchantOrder({
+        id: order.order_id,
+        restaurantId: order.restaurant.id,
+        restaurantName: order.restaurant.name,
+        studentName: order.order.customer_name,
+        pickupTime: order.order.pickup_time,
+        paymentMethod: order.order.payment_method,
+        notes: order.order.notes,
+        items: order.order.items.map((item) => ({
+          name: item.name,
+          quantity: item.quantity,
+          price: item.price,
+        })),
+        status: "Pending",
+      });
       window.sessionStorage.setItem("iskorder-last-order", JSON.stringify(order));
       clearCart();
       router.push("/confirmation");
