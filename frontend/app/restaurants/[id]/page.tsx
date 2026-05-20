@@ -88,7 +88,7 @@ export default async function RestaurantDetailPage({
         </div>
       </section>
 
-      <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[1fr_320px] lg:gap-8 lg:px-8 lg:py-12">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-8 lg:px-8 lg:py-12">
         <MenuBrowser
           menu={restaurant.menu}
           restaurantId={restaurant.id}

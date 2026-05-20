@@ -46,7 +46,7 @@ export function AddToCartButton({
       type="button"
       onClick={handleAdd}
       disabled={!canOrder}
-      className="inline-flex min-h-11 w-full items-center justify-center rounded-md bg-maroon px-4 py-2 text-sm font-black text-white shadow-sm transition hover:bg-gold hover:text-maroon focus:outline-none focus:ring-4 focus:ring-gold/40 disabled:cursor-not-allowed disabled:bg-stone disabled:text-ink/55 disabled:shadow-none sm:w-auto"
+      className="inline-flex min-h-11 w-full max-w-full items-center justify-center rounded-md bg-maroon px-4 py-2 text-center text-sm font-black text-white shadow-sm transition hover:bg-gold hover:text-maroon focus:outline-none focus:ring-4 focus:ring-gold/40 disabled:cursor-not-allowed disabled:bg-stone disabled:text-ink/55 disabled:shadow-none sm:w-auto"
     >
       {!canOrder ? "Ask kiosk" : !isLoggedIn ? "Log in to order" : added ? "Ordered" : "Add order"}
     </button>

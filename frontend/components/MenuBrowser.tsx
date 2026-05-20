@@ -50,11 +50,11 @@ export function MenuBrowser({
     .filter((section) => section.items.length > 0);
 
   const buttonBase =
-    "inline-flex min-h-11 shrink-0 items-center justify-center rounded-md border px-4 text-sm font-black transition focus:outline-none focus:ring-4 focus:ring-gold/40";
+    "inline-flex min-h-11 max-w-[calc(100vw-3rem)] shrink-0 items-center justify-center rounded-md border px-4 text-sm font-black transition focus:outline-none focus:ring-4 focus:ring-gold/40";
 
   return (
-    <div className="space-y-8">
-      <section className="rounded-lg border border-maroon/10 bg-white p-4 shadow-sm">
+    <div className="min-w-0 space-y-8">
+      <section className="min-w-0 rounded-lg border border-maroon/10 bg-white p-4 shadow-sm">
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(260px,360px)] lg:items-end">
           <div>
             <p className="text-xs font-black uppercase text-gold-dark">Menu sections</p>
@@ -74,7 +74,10 @@ export function MenuBrowser({
           </label>
         </div>
 
-        <div className="-mx-4 mt-5 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0" aria-label="Filter menu category">
+        <div
+          className="-mx-4 mt-5 flex max-w-[calc(100%+2rem)] gap-2 overflow-x-auto overscroll-x-contain px-4 pb-1 sm:mx-0 sm:max-w-full sm:px-0"
+          aria-label="Filter menu category"
+        >
           <button
             type="button"
             onClick={() => setSelectedCategory("All")}
@@ -117,7 +120,7 @@ export function MenuBrowser({
       </section>
 
       {showTessComboGuide ? (
-        <div className="overflow-hidden rounded-lg border border-maroon/10 bg-cream shadow-sm ring-1 ring-white/70">
+        <div className="min-w-0 overflow-hidden rounded-lg border border-maroon/10 bg-cream shadow-sm ring-1 ring-white/70">
           <FoodImage
             src="/images/stores/tess-store-combo-meals.png"
             fallbackSrc="/images/tess-store.jpg"

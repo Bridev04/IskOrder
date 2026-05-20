@@ -62,18 +62,18 @@ export function MenuSection({
             return (
               <article
                 key={item.id}
-                className="grid gap-4 rounded-lg border border-maroon/10 bg-white p-4 shadow-sm sm:grid-cols-[96px_1fr_auto]"
+                className="grid min-w-0 grid-cols-[88px_minmax(0,1fr)] gap-3 rounded-lg border border-maroon/10 bg-white p-3 shadow-sm sm:grid-cols-[96px_minmax(0,1fr)_auto] sm:gap-4 sm:p-4"
               >
                 <FoodImage
                   src={item.image}
                   fallbackSrc={item.fallbackImage}
                   alt={item.name}
-                  className="h-40 w-full rounded-md object-cover sm:h-24 sm:w-24"
+                  className="h-24 w-full rounded-md object-cover sm:w-24"
                 />
-                <div>
+                <div className="min-w-0">
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <h3 className="text-lg font-black text-ink">{item.name}</h3>
-                    <p className="font-black text-maroon">{formatPeso(item.price)}</p>
+                    <h3 className="min-w-0 text-base font-black text-ink sm:text-lg">{item.name}</h3>
+                    <p className="shrink-0 font-black text-maroon">{formatPeso(item.price)}</p>
                   </div>
                   <p className="mt-2 text-sm leading-6 text-ink/65">{item.description}</p>
                   <div className="mt-3 flex flex-wrap gap-2">
@@ -94,7 +94,7 @@ export function MenuSection({
                   <p className="mt-2 text-xs font-bold text-ink/55">{availability.detail}</p>
                 </div>
                 {!viewOnly ? (
-                  <div className="flex w-full items-center sm:w-auto sm:justify-end">
+                  <div className="col-span-2 flex w-full min-w-0 items-center sm:col-span-1 sm:w-auto sm:justify-end">
                     <AddToCartButton
                       restaurantId={restaurantId}
                       restaurantName={restaurantName}
