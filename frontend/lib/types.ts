@@ -1,5 +1,5 @@
 export type ServiceType = "pickup" | "delivery";
-export type PaymentMethod = "GCash" | "InstaPay" | "Cash";
+export type PaymentMethod = "GCash" | "InstaPay";
 
 export type MenuItem = {
   id: string;

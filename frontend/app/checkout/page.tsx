@@ -13,7 +13,7 @@ import type {
   ServiceType,
 } from "@/lib/types";
 
-const paymentMethods: PaymentMethod[] = ["GCash", "InstaPay", "Cash"];
+const paymentMethods: PaymentMethod[] = ["GCash", "InstaPay"];
 const merchantOrdersStorageKey = "iskorder-merchant-orders";
 
 function formatPickupTime(date: Date) {
